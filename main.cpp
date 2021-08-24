@@ -122,7 +122,6 @@ public:
 
 int main()
 {
-    Employee employe1 = Employee("Türkay", "biliyor.com", 47);
     Developer d = Developer("Türkay", "biliyor.com", 47, "c++");
     Teacher t =  Teacher("Ahmet", "ates.com", 50, "History");
 
@@ -137,6 +136,7 @@ int main()
 
     e1->Work();
     e2->Work();
+     
     return 0;
 }
 
