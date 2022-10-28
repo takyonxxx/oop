@@ -1,6 +1,33 @@
 #include <QCoreApplication>
 #include "utils.h"
 
+// four different data types in C++?
+// Primitive/Basic: Char, int, short, float, double, long, bool, etc.
+// Derived: Array, pointer, etc.
+// Enumeration: Enum
+// User-defined: Structure, class, etc.
+
+// Pointers are the variables that store the memory address of another variable. 
+// The type of the variable must correspond with the type of pointer.
+
+// STL stands for standard template library. It is a library of container templates that provide generic classes and functions.
+// STL components are containers, algorithms, iterators, and function objects.
+
+// A copy constructor is a member function that initializes an object using another object within the same class.
+
+// A scope resolution operator is represented as ::
+// This operator is used to associate function definition to a particular class.
+// The scope operator is used for the following purposes:
+// To access a global variable when you have a local variable with the same name.
+// To define a function outside the class.
+
+// Object: Anything that exists physically in the real world is called an object.
+// Class: The collection of objects is called class.
+// Inheritance: Properties of parent class inherited into child class is known as inheritance.
+// Polymorphism: It is the ability to exist in more than one form.
+// Encapsulation: Binding of code and data together into a single unit.
+// Abstraction: Hiding internal details and showing functionality to the user.
+    
 //--------------------------------------------------------------------------->
 
 //Nesne Yönelimli Programlama, (OOP) (Object Oriented Programming)
@@ -15,30 +42,43 @@
 //Bunu yaparak, verilere dış dünyadan kolayca erişilemez.
 
 //Inheritance (Kalıtım)
-//Bir nesnenin özelliklerinin farklı nesneler tarafından da kullanılabilmesine olanak sağlayan yöntemdir.
-//Kalıtım veya Miras alma da denir.
+// Bir nesnenin özelliklerinin farklı nesneler tarafından da kullanılabilmesine olanak sağlayan yöntemdir.
+// Kalıtım veya Miras alma da denir.
+
 //Access Specifiers
-//public, protected, and private inheritance have the following features:
-//public inheritance makes public members of the base class public in the derived class and the protected members of the base class remain protected in the derived class.
-//protected inheritance makes the public and protected members of the base class protected in the derived class.
-//private inheritance makes the public and protected members of the base class private in the derived class.
+// public, protected, and private inheritance have the following features:
+// public inheritance makes public members of the base class public in the derived class and the protected members of the base class remain protected in the derived class.
+// protected inheritance makes the public and protected members of the base class protected in the derived class.
+// private inheritance makes the public and protected members of the base class private in the derived class.
 
 //Polymorphism (Polimorfizm)
-//Aynı adı taşıyan, ancak farklı eylemler gerçekleştirecek farklı argümanlara sahip fonksiyonlar oluşturmamızı sağlayan bir özelliktir.
+// Aynı adı taşıyan, ancak farklı eylemler gerçekleştirecek farklı argümanlara sahip fonksiyonlar oluşturmamızı sağlayan bir özelliktir.
+// Polymorphism relates to many forms that differ in different situations. It occurs when the hierarchy of multiple classes is related to one another by inheritance. In C++, the two types of polymorphism are
+
+// Compile Time Polymorphism - Achieved by operation or function overloading.
+// Runtime Polymorphism - Achieved by function overriding. 
+// A member function in the base class redefined in a derived class is a virtual function. It is declared using the virtual keyword. 
+// Virtual function: A member function in the base class redefined in a derived class. It is declared with a virtual keyword.
+// Pure virtual function: A function with no implementation. It is declared by assigning 0. It does not have a body
 
 //Abstraction (Soyutlama)
-//Veri soyutlama, dış dünyaya sadece gerekli bilgileri sağlamak ve arka plan ayrıntılarını gizlemek
-//setter, getter türü fonksiyonlar
+// Veri soyutlama, dış dünyaya sadece gerekli bilgileri sağlamak ve arka plan ayrıntılarını gizlemek
+// setter, getter türü fonksiyonlar
+// Abstraction means displaying the essential details to the user while hiding the irrelevant or particular details
+// that you don’t want to show to a user. It is of two types:
+
+// A friend class is capable of accessing protected, private, and public members of other classes in which it is declared as friends.
+// A friend function can also access protected, private, and public members, but it is not a member function.
 
 //--------------------------------------------------------------------------->
+// Destructors are used to deallocate memory and perform the cleanup. Can not overload.
 
-//no constructor             //rule of zero
-
-//copy constructor           //rule of three
-//copy assignment operator   //rule of three
-//destructor                 //rule of three
-//move constructor           //rule of five c++11
-//move assignment operator   //rule of five c++11
+// no constructor             //rule of zero
+// copy constructor           //rule of three
+// copy assignment operator   //rule of three
+// destructor                 //rule of three
+// move constructor           //rule of five c++11
+// move assignment operator   //rule of five c++11
 
 //Sadece kopyalanabilen (Copyable Objects) objeler söz konusu olduğunda
 //Otomatik kaynak yönetimi kullanılıyorsa: The Rule of Zero.
@@ -48,12 +88,24 @@
 //Manuel kaynak yönetimi kullanılıyorsa: The Rule of Five.
 
 //--------------------------------------------------------------------------->
+// An abstract class is a class whose objects cannot be created. It serves as a parent for the derived classes.
+// Placing a pure virtual function in the class makes it an abstract class. 
+
+// A static member function can be called even if no class objects exist. 
+// It is accessed using only the class name and the scope resolution operator (::).  
 
 // public, protected, and private inheritance have the following features:
 
 // public inheritance makes public members of the base class public in the derived class, and the protected members of the base class remain protected in the derived class.
 // protected inheritance makes the public and protected members of the base class protected in the derived class.
 // private inheritance makes the public and protected members of the base class private in the derived class.
+
+// --------------------------------------------------------------------------------->
+// In the call by value method, you pass the copies of actual parameters to the function's formal parameters. 
+// This means if there is any change in the values inside the function, then that change will not affect the actual values.
+
+// In the call-by-reference method, the reference or address of actual parameters is sent to the function's formal parameters.
+// This means any change in values inside the function will be reflected in the actual values.
 
 //içinde en az bir pure(saf) metod olan class
 class AbstractClass //Abtstract Class
