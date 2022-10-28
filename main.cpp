@@ -116,6 +116,14 @@
 // In the call-by-reference method, the reference or address of actual parameters is sent to the function's formal parameters.
 // This means any change in values inside the function will be reflected in the actual values.
 
+// Size of char: 1 byte
+// Size of short int: 2 bytes
+// Size of int, unsigned int: 4 bytes
+// Size of float: 4 bytes
+// Size of long int: 8 bytes
+// Size of double: 8 bytes
+// Size of wchar_t : 4 bytes
+
 //içinde en az bir pure(saf) metod olan class
 class AbstractClass //Abtstract Class
 {
