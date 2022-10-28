@@ -1,6 +1,15 @@
 #include <QCoreApplication>
 #include "utils.h"
 
+// dynamic_cast <new_type> (expression) can be used only with pointers and references to objects. Conversion is safe
+//  Always successful when we cast a class to one of its base classes
+// reinterpret_cast <new_type> (expression) converts any pointer type to any other pointer type, 
+//  a simple binary copy of the value from one pointer to the other
+// static_cast <new_type> (expression)conversions between pointers to related classes,
+//  up to the programmer to ensure that the conversion is safe
+// const_cast <new_type> (expression) in order to pass a const argument to a function that expects a non-constant parameter
+// typeid allows to check the type of an expression: typeid (expression)
+
 // four different data types in C++?
 // Primitive/Basic: Char, int, short, float, double, long, bool, etc.
 // Derived: Array, pointer, etc.
