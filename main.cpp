@@ -805,33 +805,83 @@ int main(int argc, char *argv[])
    //  derivedPrivate.protectedFunction();     // Error: private inheritance
 
 
-    // // Create a DerivedClass object
-    // RuleOfFive* basePointer = new DerivedRuleOfFive();
-    // // Delete through the base class pointer
-    // delete basePointer;
+    // Create a DerivedRuleOfFive object
+    DerivedRuleOfFive _obj1;
+    DerivedRuleOfFive _obj2 = _obj1;  // Copy Constructor
+    DerivedRuleOfFive _obj3;
+    _obj3 = _obj1;  // Copy Assignment Operator
 
-    // Create objects
-    // RuleOfFive obj1;
-    // RuleOfFive obj2 = obj1;  // Copy Constructor
-    // RuleOfFive obj3;
-    // obj3 = obj1;  // Copy Assignment Operator
+    DerivedRuleOfFive obj4 = std::move(_obj1);  // Move Constructor
+    DerivedRuleOfFive obj5;
+    obj5 = std::move(_obj1);  // Move Assignment Operator
 
-    // RuleOfFive obj4 = std::move(obj1);  // Move Constructor
-    // RuleOfFive obj5;
-    // obj5 = std::move(obj1);  // Move Assignment Operator
+    // Declare a vector of integers
+    std::vector<int> myVector;
 
-//     // Create a DerivedRuleOfFive object
-//     DerivedRuleOfFive derivedObj;
-//     derivedObj.doSomething();
+    // Add elements to the vector
+    myVector.push_back(10);
+    myVector.push_back(20);
+    myVector.push_back(30);
+    myVector.push_back(10);
 
-//     DerivedRuleOfFive obj1;
-//     DerivedRuleOfFive obj2 = obj1;  // Copy Constructor
-//     DerivedRuleOfFive obj3;
-//     obj3 = obj1;  // Copy Assignment Operator
+    // Access elements using index
+    std::cout << "First element: " << myVector[0] << std::endl;
 
-//     DerivedRuleOfFive obj4 = std::move(obj1);  // Move Constructor
-//     DerivedRuleOfFive obj5;
-//     obj5 = std::move(obj1);  // Move Assignment Operator
+    // Iterate through the vector
+    for (int i : myVector) {
+        std::cout << i << " " << std::endl;
+    }
+
+    // Declare a map with string keys and int values
+    std::map<std::string, int> myMap;
+
+    // Insert key-value pairs
+    myMap["Alice"] = 25;
+    myMap["Bob"] = 30;
+    myMap["Bob"] = 111;
+    myMap["Charlie"] = 22;
+
+    // Access values using keys
+    std::cout << "Bob's age: " << myMap["Bob"] << std::endl;
+
+    // Iterate through the map
+    for (const auto& pair : myMap) {
+        std::cout << pair.first << ": " << pair.second << " " << std::endl;
+    }
+
+    // Create an unordered_map with string keys and int values
+    std::unordered_map<std::string, int> myUnorderedMap;
+
+    // Insert key-value pairs
+    myUnorderedMap["one"] = 1;
+    myUnorderedMap["two"] = 2;
+    myUnorderedMap["three"] = 3;
+
+    // Search for a key
+    std::string key = "two";
+    auto it = myUnorderedMap.find(key);
+
+    if (it != myUnorderedMap.end()) {
+        // Key found
+        std::cout << "Value for key '" << key << "': " << it->second << std::endl;
+    } else {
+        // Key not found
+        std::cout << "Key '" << key << "' not found.\n";
+    }
+
+    // Try to search for a non-existent key
+    key = "four";
+    it = myUnorderedMap.find(key);
+
+    if (it != myUnorderedMap.end()) {
+        // Key found
+        std::cout << "Value for key '" << key << "': " << it->second << std::endl;
+    } else {
+        // Key not found
+        std::cout << "Key '" << key << "' not found." << std::endl;
+    }
+
+
 
 //     MyClass obj(42);
 
