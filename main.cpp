@@ -657,7 +657,23 @@ public:
 
 class Base {
 public:
+    Base() : protectedVar(42) {}
+
     virtual ~Base() {}
+
+    void accessProtectedVar() {
+        std::cout << "Accessing protectedVar from Base class: " << protectedVar << std::endl;
+    }
+protected:
+    int protectedVar;
+};
+
+class DerivedTestProtected : public Base {
+public:
+    void accessProtectedVarFromDerived() {
+        // Accessing protectedVar from the derived class
+        std::cout << "Accessing protectedVar from Derived class: " << protectedVar << std::endl;
+    }
 };
 
 // Hedef (Target) arayüzü
@@ -745,6 +761,10 @@ private:
     Database& database;
 };
 
+// Inline function definition
+inline int add(int a, int b) {
+    return a + b;
+}
 
 class Derived : public Base {};
 
@@ -752,6 +772,15 @@ int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     draw_star_pyramid(5);
+
+    int result = add(3, 4);  // The add() function is expanded in-place
+    std::cout << "Result: " << result << std::endl;
+
+    Base baseObjProtected;
+    baseObjProtected.accessProtectedVar();  // This is allowed
+
+    DerivedTestProtected derivedObjProtected;
+    derivedObjProtected.accessProtectedVarFromDerived();  // This is allowed
 
     // Create a Database object
     Database myDatabase;
