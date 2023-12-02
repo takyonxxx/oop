@@ -696,12 +696,75 @@ public:
     }
 };
 
+#include <iostream>
+
+// Forward declaration of the friend class
+class FriendClass;
+
+// The class that declares another class as a friend
+class SampleClass {
+private:
+    int privateMember;
+
+public:
+    SampleClass() : privateMember(42) {}
+
+    // Declare FriendClass as a friend of MyClass
+    friend class FriendClass;
+};
+
+// The friend class that can access private members of MyClass
+class FriendClass {
+public:
+    void accessPrivateMember(const SampleClass& obj) {
+        // FriendClass can access private members of MyClass
+        std::cout << "Accessing private member of MyClass: " << obj.privateMember << std::endl;
+    }
+};
+
+// Dependency Injection (DI) is a design pattern in software development that deals with how components or services obtain their dependencies.
+// In other words, it's a technique where the dependencies of a class or module are injected from the outside rather than being created within the class itself.
+
+class Database {
+public:
+    void write(const std::string& message) {
+        std::cout << "Writing to the database: " << message << std::endl;
+    }
+};
+
+class Logger {
+public:
+    Logger(Database& db) : database(db) {}
+
+    void log(const std::string& message) {
+        // Use the injected database
+        database.write(message);
+    }
+
+private:
+    Database& database;
+};
+
+
 class Derived : public Base {};
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     draw_star_pyramid(5);
+
+    // Create a Database object
+    Database myDatabase;
+    // Create a Logger object and inject the Database
+    Logger myLogger(myDatabase);
+    // Use the Logger to log a message
+    myLogger.log("Hello, Logger!");
+
+    SampleClass myObject;
+    FriendClass friendObject;
+
+    // FriendClass can access private members of MyClass
+    friendObject.accessPrivateMember(myObject);
 
     std::unique_ptr<FreeClass> myPtr = std::make_unique<FreeClass>();
     // Automatically releases memory when myPtr goes out of scope
