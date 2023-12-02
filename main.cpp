@@ -402,31 +402,466 @@ void test_operator_overloading()
 
 }
 
+class ConstClass {
+public:
+    void regularFunction() {
+        std::cout << "Regular Function" << std::endl;
+    }
+
+    void constFunction() const {
+        std::cout << "Constant Function" << std::endl;
+        // Uncommenting the line below would result in a compilation error
+        // regularFunction();  // Error: Cannot call non-const member function from a const member function
+    }
+};
+
+// Global variable with the same name as a local variable in the class
+int globalVariable = 42;
+
+class MyClass {
+public:
+    int localVar; // Local variable with the same name as the global variable
+
+    MyClass(int value) : localVar(value) {}
+
+    // Function defined outside the class using scope resolution operator
+    void printValues();
+
+    // Function to access the global variable using scope resolution
+    void accessGlobalVar();
+};
+
+// Definition of the function outside the class using scope resolution operator
+void MyClass::printValues() {
+    std::cout << "Local variable: " << localVar << ", Global variable: " << ::globalVariable << std::endl;
+}
+
 // class başlatılmadan kullanabildik
 int FreeClass::int_static_degisken = 5;
+
+class RuleOfFive {
+public:
+
+    // Constructor
+    explicit RuleOfFive() {
+        std::cout << "RuleOfFive Constructor" << std::endl;
+    }
+
+    // Destructor
+    // When a base class is intended for polymorphic use,
+    // its destructor may have to be declared public and virtual.
+    virtual ~RuleOfFive() {
+        std::cout << "RuleOfFive Destructor" << std::endl;
+    }
+
+    // Copy Constructor
+    RuleOfFive(const RuleOfFive& other) {
+        // Copy data from 'other' to 'this'
+        std::cout << "Copy data from 'other' to 'this'" << std::endl;
+    }
+
+    // Copy Assignment Operator
+    RuleOfFive& operator=(const RuleOfFive& other) {
+        if (this != &other) {
+            std::cout << "Copy data from 'other' to 'this'" << std::endl;
+        }
+        return *this;
+    }
+
+    // Move Constructor
+    RuleOfFive(RuleOfFive&& other) noexcept {
+        // Transfer resources from 'other' to 'this'
+        std::cout << "Transfer resources from 'other' to 'this'" << std::endl;
+    }
+
+    // Move Assignment Operator
+    RuleOfFive& operator=(RuleOfFive&& other) noexcept {
+        if (this != &other) {
+            // Transfer resources from 'other' to 'this'
+            std::cout << "Transfer resources from 'other' to 'this'" << std::endl;
+        }
+        return *this;
+    }
+
+    // Pure virtual function makes this class abstract
+    virtual void doSomething() const = 0;
+};
+
+class DerivedRuleOfFive : public RuleOfFive {
+public:
+    // Constructor
+    DerivedRuleOfFive() {
+        std::cout << "DerivedClass Constructor" << std::endl;
+    }
+
+    // Destructor
+    // The DerivedClass destructor will be automatically called
+    // even when deleting through a RuleOfFive pointer
+    ~DerivedRuleOfFive() {
+        std::cout << "DerivedClass Destructor" << std::endl;
+        // Release any allocated resources specific to DerivedClass
+    }
+
+    // Implementation of the pure virtual function
+    void doSomething() const override {
+        std::cout << "DerivedRuleOfFive doing something" << std::endl;
+    }
+
+    // Other member functions
+};
+
+// By using override, you make your intentions clear and enable the compiler to provide better error checking:
+
+class MyExplicitClass {
+public:
+    explicit MyExplicitClass(int value) : data(value){
+        // Dolaylı çağrılmaya izin vermeyen yapılandırıcı
+        std::cout << data << std::endl;
+    }
+
+    ~MyExplicitClass() {
+        std::cout << "MyClass Destructor with value: " << data << std::endl;
+    }
+
+    void display() const {
+        std::cout << "MyClass Object with value: " << data << std::endl;
+    }
+
+private:
+    int data;
+};
+
+// Class with template method
+class OverloadTemplateExample {
+public:
+    // Template method for any type
+    template <typename T>
+    void display(const T& value) {
+        std::cout << "Displaying value: " << value << std::endl;
+    }
+
+    // Overloaded template method for a pair of values
+    template <typename T1, typename T2>
+    void display(const T1& value1, const T2& value2) {
+        std::cout << "Displaying values: " << value1 << " and " << value2 << std::endl;
+    }
+};
+
+
+class BaseTest {
+public:
+    void publicFunction() {
+        std::cout << "Public Function" << std::endl;
+    }
+
+protected:
+    void protectedFunction() {
+        std::cout << "Protected Function" << std::endl;
+    }
+};
+
+class DerivedPublic : public BaseTest {
+public:
+    void useBaseFunctions() {
+        publicFunction();    // Accessible
+        protectedFunction(); // Accessible
+    }
+};
+
+class DerivedProtected : protected BaseTest {
+public:
+    void useBaseFunctions() {
+        publicFunction();    // Accessible
+        protectedFunction(); // Accessible
+    }
+};
+
+class DerivedPrivate : private BaseTest {
+public:
+    void useBaseFunctions() {
+        publicFunction();    // Accessible
+        protectedFunction(); // Accessible
+    }
+};
+
+void draw_star_pyramid(int rows) {
+    for (int i = 0; i < rows; i++) {
+
+        // Print spaces before stars
+        for (int j = 0; j < rows - i - 1; j++) {
+            std::cout << " ";
+        }
+
+        // Print stars
+        for (int k = 0; k < 2 * i + 1; k++) {
+            std::cout << "*";
+        }
+
+        // Move to the next line
+        std::cout << std::endl;
+    }
+}
+
+class Singleton {
+public:
+    static Singleton& getInstance() {
+        static Singleton instance;
+        return instance;
+    }
+
+    void doSomething()
+    {
+        std::cout << "Singleton doSomething... " << std::endl;
+    }
+
+    // Other member functions and data members...
+
+private:
+    // Private constructor to prevent instantiation
+    Singleton() {}
+    // Private copy constructor and assignment operator to prevent copying
+    // The purpose is to enforce the singleton pattern, ensuring that there is only one instance of the class throughout the program.
+    Singleton(const Singleton&) = delete;
+    Singleton& operator=(const Singleton&) = delete;
+};
+
+// Ürün arayüzü
+class Product {
+public:
+    virtual void use() const = 0;
+    virtual ~Product() {}
+};
+
+// Somut Ürün
+class ConcreteProduct : public Product {
+public:
+    void use() const override {
+        std::cout << "ConcreteProduct is being used." << std::endl;
+    }
+};
+
+// Creator arayüzü
+class Creator {
+public:
+    virtual Product* createProduct() const = 0;
+    virtual ~Creator() {}
+};
+
+// Somut Creator
+class ConcreteCreator : public Creator {
+public:
+    Product* createProduct() const override {
+        return new ConcreteProduct();
+    }
+};
+
+class Base {
+public:
+    virtual ~Base() {}
+};
+
+// Hedef (Target) arayüzü
+class Target {
+public:
+    virtual void request() const = 0;
+    virtual ~Target() {}
+};
+
+// Hedef (Target) sınıfı
+class ConcreteTarget : public Target {
+public:
+    void request() const override {
+        std::cout << "ConcreteTarget request" << std::endl;
+    }
+};
+
+// Adaptör arayüzü
+class Adaptee {
+public:
+    void specificRequest() const {
+        std::cout << "Adaptee specificRequest" << std::endl;
+    }
+};
+
+// Somut Adaptör
+class Adapter : public Target {
+private:
+    Adaptee* adaptee;
+
+public:
+    Adapter(Adaptee* adapteeObj) : adaptee(adapteeObj) {}
+
+    void request() const override {
+        adaptee->specificRequest();
+    }
+};
+
+class Derived : public Base {};
 
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
-    // class başlatılmadan kullanabildik
-    FreeClass::static_function();
+    draw_star_pyramid(5);
 
-    test_five_rules();
+    std::unique_ptr<FreeClass> myPtr = std::make_unique<FreeClass>();
+    // Automatically releases memory when myPtr goes out of scope
 
-    DerivedClass *d_class = new DerivedClass();
-//    d_class->_protInt = 5;
-    d_class->change_protected();
-    // if not delete, demonstrates a basic memory leak
-    delete  d_class;
+    std::shared_ptr<FreeClass> sharedPtr1 = std::make_shared<FreeClass>();
+    std::shared_ptr<FreeClass> sharedPtr2 = sharedPtr1;  // Shared ownership
+    // Memory is released when the last sharedPtr owning the resource is destroyed
 
-    {
-        //no memory leak
-        test_smart_pointers();
+    std::shared_ptr<FreeClass> sharedPtr = std::make_shared<FreeClass>();
+    std::weak_ptr<FreeClass> weakPtr = sharedPtr;  // Non-owning reference
+    // Use weakPtr to check if the resource is still valid before accessing it
+    // Using the weak pointer
+    if (auto lockedSharedPtr = weakPtr.lock()) {
+        // The weak pointer is valid, so use it
+        lockedSharedPtr->alan(10, 5);
+    } else {
+        // The weak pointer is no longer valid (shared_ptr has been destructed)
+        std::cout << "The shared_ptr is no longer available." << std::endl;
     }
 
-    test_templates();
-    test_function_overloading();
-    test_operator_overloading();
+    double myDouble = 3.14;
+    int myInt = static_cast<int>(myDouble);  // Açıkça tip dönüşümü, Explicit type conversion
+
+    // MyExplicitClass obj = 42;  // Hata: 'explicit' nedeniyle dolaylı dönüşüm izin verilmez
+    MyExplicitClass obj2(42);  // Açıkça yapılandırma
+
+    OverloadTemplateExample example;
+
+    // Calling the template methods with different types and numbers of arguments
+    example.display(42);
+    example.display(3.14);
+    example.display("Hello, Template Overloading!");
+    example.display(10, 20);
+    example.display(3.14, "pi");
+
+    int intValue = 1024;
+    // Using reinterpret_cast to treat the integer as an array of bytes
+    unsigned char* bytePtr = reinterpret_cast<unsigned char*>(&intValue);
+
+    // Accessing individual bytes
+    for (size_t i = 0; i < sizeof(int); ++i) {
+        std::cout << "Byte " << i << ": " << static_cast<int>(bytePtr[i]) << std::endl;
+    }
+
+    Derived derivedObj;
+    Base baseObj = static_cast<Base>(derivedObj);
+
+    Base* basePtr = new Derived;
+
+    // Using typeid in a polymorphic hierarchy
+    if (typeid(*basePtr) == typeid(Derived)) {
+        std::cout << "basePtr points to a Derived object." << std::endl;
+    } else {
+        std::cout << "basePtr does not point to a Derived object." << std::endl;
+    }
+
+    delete basePtr;
+
+    // Client tarafından kullanım
+    Creator* creator = new ConcreteCreator();
+    Product* product = creator->createProduct();
+
+    product->use();
+
+    // Belleği temizle
+    delete product;
+    delete creator;
+
+    // Client tarafından kullanım
+    ConcreteTarget target;
+    Adaptee adaptee;
+    Adapter adapter(&adaptee);
+
+    // Hedef (Target) sınıfının doğrudan kullanımı
+    target.request();
+
+    std::cout << "------" << std::endl;
+
+    // Adaptör aracılığıyla kullanım
+    adapter.request();
+
+    // Access the singleton instance
+    Singleton& mySingleton = Singleton::getInstance();
+
+    // Use the singleton
+    mySingleton.doSomething();
+
+    DerivedPublic derivedPublic;
+    derivedPublic.publicFunction();
+    // derivedPublic.protectedFunction();  // Error: protected inheritance
+    derivedPublic.useBaseFunctions();
+
+    DerivedProtected derivedProtected;
+    derivedProtected.useBaseFunctions();
+    // derivedProtected.publicFunction();      // Error: protected inheritance
+    // derivedProtected.protectedFunction();   // Error: protected inheritance
+
+    DerivedPrivate derivedPrivate;
+    derivedPrivate.useBaseFunctions();
+   //  derivedPrivate.publicFunction();        // Error: private inheritance
+   //  derivedPrivate.protectedFunction();     // Error: private inheritance
+
+
+    // // Create a DerivedClass object
+    // RuleOfFive* basePointer = new DerivedRuleOfFive();
+    // // Delete through the base class pointer
+    // delete basePointer;
+
+    // Create objects
+    // RuleOfFive obj1;
+    // RuleOfFive obj2 = obj1;  // Copy Constructor
+    // RuleOfFive obj3;
+    // obj3 = obj1;  // Copy Assignment Operator
+
+    // RuleOfFive obj4 = std::move(obj1);  // Move Constructor
+    // RuleOfFive obj5;
+    // obj5 = std::move(obj1);  // Move Assignment Operator
+
+//     // Create a DerivedRuleOfFive object
+//     DerivedRuleOfFive derivedObj;
+//     derivedObj.doSomething();
+
+//     DerivedRuleOfFive obj1;
+//     DerivedRuleOfFive obj2 = obj1;  // Copy Constructor
+//     DerivedRuleOfFive obj3;
+//     obj3 = obj1;  // Copy Assignment Operator
+
+//     DerivedRuleOfFive obj4 = std::move(obj1);  // Move Constructor
+//     DerivedRuleOfFive obj5;
+//     obj5 = std::move(obj1);  // Move Assignment Operator
+
+//     MyClass obj(42);
+
+//     // Accessing local and global variables using scope resolution
+//     obj.printValues();
+
+//     const ConstClass constObj;
+//     // constObj.regularFunction();  // Error: Cannot call non-const member function on a const object
+//     constObj.constFunction();
+
+
+//     // class başlatılmadan kullanabildik
+//     FreeClass::static_function();
+
+//     test_five_rules();
+
+//     DerivedClass *d_class = new DerivedClass();
+// //    d_class->_protInt = 5;
+//     d_class->change_protected();
+//     // if not delete, demonstrates a basic memory leak
+//     delete  d_class;
+
+//     {
+//         //no memory leak
+//         test_smart_pointers();
+//     }
+
+//     test_templates();
+//     test_function_overloading();
+//     test_operator_overloading();
 
     return a.exec();
 }

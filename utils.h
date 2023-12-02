@@ -59,6 +59,8 @@ using namespace std;
 
 // any source file that includes this will be able to use "global_x"
 extern int global_x;
+// Declare the global variable using extern
+extern int globalVariable;
 
 // Template Metaprogramming
 // Templates are expanded at compiler time. This is like macros.
